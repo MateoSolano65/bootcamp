@@ -1,11 +1,11 @@
-
-
 export default function Home() {
   return (
     <html lang="es">
-    <body>
-      <p>Helloo</p>
-    </body>
+      <body>
+        <main>
+          <h1>Helloo World!!!</h1>
+        </main>
+      </body>
     </html>
   );
 }
