@@ -12,9 +12,7 @@ export function NavbarHome() {
           <Nav className="me-auto">
             <Nav.Link href="/">Inicio</Nav.Link>
             <NavDropdown title="Sobre nosotros" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">
-                Quiénes somos
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/about">Quiénes somos</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.2">
                 Nusteros productos

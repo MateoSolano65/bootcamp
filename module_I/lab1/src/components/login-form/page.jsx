@@ -1,45 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
+import { useLogin } from 'lab1/hooks/useLogin';
 
 export const LoginForm = () => {
-  const [inputUsername, setInputUsername] = useState('');
-  const [inputPassword, setInputPassword] = useState('');
-
-  const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-    await delay(500);
-    console.log(`Username :${inputUsername}, Password :${inputPassword}`);
-    if (inputUsername !== 'admin' || inputPassword !== 'admin') {
-      setShow(true);
-    }
-    setLoading(false);
-  };
-
-  function delay(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
+  const {
+    inputEmail,
+    setInputEmail,
+    inputPassword,
+    setInputPassword,
+    show,
+    setShow,
+    loading,
+    handleSubmit,
+  } = useLogin();
 
   return (
-    <div
-      className="sign-in__wrapper"
-      // style={{ backgroundImage: `url(${BackgroundImage})` }}
-    >
+    <div className="sign-in__wrapper">
       {/* Overlay */}
       <div className="sign-in__backdrop"></div>
       {/* Form */}
       <Form className="shadow p-4 bg-white rounded" onSubmit={handleSubmit}>
         {/* Header */}
-        <img
-          className="img-thumbnail mx-auto d-block mb-2"
-          // src={Logo}
-          alt="logo"
-        />
+        <img className="img-thumbnail mx-auto d-block mb-2" alt="logo" />
         <div className="h4 mb-2 text-center">Inicia Sesión</div>
-        {/* ALert */}
+        {/* Alert */}
         {show ? (
           <Alert
             className="mb-2"
@@ -52,13 +36,13 @@ export const LoginForm = () => {
         ) : (
           <div />
         )}
-        <Form.Group className="mb-2" controlId="username">
-          <Form.Label>Usuario</Form.Label>
+        <Form.Group className="mb-2" controlId="email">
+          <Form.Label>Email</Form.Label>
           <Form.Control
-            type="text"
-            value={inputUsername}
-            placeholder="Pepito Perez"
-            onChange={(e) => setInputUsername(e.target.value)}
+            type="email"
+            value={inputEmail}
+            placeholder="email@example.com"
+            onChange={(e) => setInputEmail(e.target.value)}
             required
           />
         </Form.Group>
@@ -73,15 +57,15 @@ export const LoginForm = () => {
           />
         </Form.Group>
         <Form.Group className="mb-2" controlId="checkbox">
-          <Form.Check type="checkbox" label="Recuérdame" />
+          <Form.Check type="checkbox" label="Recordame" />
         </Form.Group>
         {!loading ? (
           <Button className="w-100" variant="primary" type="submit">
-            Log In
+            Iniciar Sesión
           </Button>
         ) : (
           <Button className="w-100" variant="primary" type="submit" disabled>
-            Logging In...
+            Iniciando Sesión...
           </Button>
         )}
         <div className="d-grid justify-content-end">
