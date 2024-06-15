@@ -1,35 +1,74 @@
-import React, { useState } from 'react';
+'use client';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Alert, Dropdown } from 'react-bootstrap';
 import useRegister from 'lab1/hooks/useRegister';
-
+import { useInputHook } from 'lab1/hooks/useInputHook';
+import Image from 'next/image';
 export const RegisterForm = () => {
-  const [inputEmail, setInputEmail] = useRegister('inputEmail', '');
-  const [inputName, setInputName] = useRegister('inputName', '');
-  const [inputSurname, setInputSurname] = useRegister('inputSurname', '');
-  const [inputIDType, setInputIDType] = useRegister('inputIDType', '');
-  const [inputIDNumber, setInputIDNumber] = useRegister('inputIDNumber', '');
-  const [inputPhone, setInputPhone] = useRegister('inputPhone', '');
-  const [inputAddress, setInputAddress] = useRegister('inputAddress', '');
-  const [inputPassword, setInputPassword] = useRegister('inputPassword', '');
+  const [documentsTypeList] = useState([
+    { id: 1, name: 'Cédula de Ciudadanía (CC)' },
+    { id: 2, name: 'Tarjeta de Identidad (TI)' },
+    { id: 3, name: 'Registro Civil (RC)' },
+    { id: 4, name: 'Cédula de Extranjería (CE)' },
+    { id: 5, name: 'Carné de Identidad (CI)' },
+    { id: 6, name: 'Documento Nacional de Identidad (DNI)' },
+  ]);
+
+  const { value: inputEmail, bind: setInputEmail } = useInputHook('');
+  const { value: inputName, bind: setInputName } = useInputHook('');
+  const { value: inputSurname, bind: setInputSurname } = useInputHook('');
+  const { value: inputIDType, bind: setInputIDType } = useInputHook('');
+  const { value: inputIDNumber, bind: setInputIDNumber } = useInputHook('');
+  const { value: inputPhone, bind: setInputPhone } = useInputHook('');
+  const { value: inputAddress, bind: setInputAddress } = useInputHook('');
+  const { value: inputPassword, bind: setInputPassword } = useInputHook('');
 
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  let [registeredUsers, setRegisteredUsers] = useState([]);
+
+  useEffect(() => {
+    const usersFromStorage =
+      JSON.parse(localStorage.getItem('userRegister')) || [];
+    setRegisteredUsers(usersFromStorage);
+  }, []);
+
+  const wordToCapitalize = (words) => {
+    if (words !== null && words !== undefined && words.length > 0) {
+      return words
+        .split(' ')
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
+        .join(' ');
+    }
+    return words;
+  };
+  const encodeBase64 = (word) => {
+    let encodedStringBtoA = undefined;
+    if (word !== null && word !== undefined && word.length > 0) {
+      encodedStringBtoA = btoa(word);
+    }
+    return encodedStringBtoA;
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
     await delay(500);
-    console.log(`
-      Email: ${inputEmail},
-      Name: ${inputName},
-      Surname: ${inputSurname},
-      ID Type: ${inputIDType},
-      ID Number: ${inputIDNumber},
-      Phone: ${inputPhone},
-      Address: ${inputAddress},
-      Password: ${inputPassword}
-    `);
-
+    const newUser = {
+      email: inputEmail,
+      firstName: wordToCapitalize(inputName),
+      lastName: wordToCapitalize(inputSurname),
+      documentType: inputIDType,
+      documentId: inputIDNumber,
+      phone: inputPhone,
+      address: inputAddress,
+      password: encodeBase64(inputPassword),
+    };
+    const updatedUsers = [...registeredUsers, newUser];
+    setRegisteredUsers(updatedUsers);
+    localStorage.setItem('userRegister', JSON.stringify(updatedUsers));
     setLoading(false);
   };
 
@@ -49,10 +88,12 @@ export const RegisterForm = () => {
       {/* Form */}
       <Form className="shadow p-4 bg-white rounded" onSubmit={handleSubmit}>
         {/* Header */}
-        <img
+        <Image
           className="img-thumbnail mx-auto d-block mb-2"
-          // src={logo}
+          src="/images/3.jpg"
           alt="logo"
+          width={70}
+          height={70}
         />
         <div className="h4 mb-2 text-center">Regístrate</div>
         {/* Alert */}
@@ -74,7 +115,7 @@ export const RegisterForm = () => {
             type="email"
             value={inputEmail}
             placeholder="email@example.com"
-            onChange={handleInputChange(setInputEmail)}
+            {...setInputEmail}
             required
           />
         </Form.Group>
@@ -84,7 +125,7 @@ export const RegisterForm = () => {
             type="text"
             value={inputName}
             placeholder="Nombre(s)"
-            onChange={handleInputChange(setInputName)}
+            {...setInputName}
             required
           />
         </Form.Group>
@@ -94,49 +135,30 @@ export const RegisterForm = () => {
             type="text"
             value={inputSurname}
             placeholder="Apellido(s)"
-            onChange={handleInputChange(setInputSurname)}
+            {...setInputSurname}
             required
           />
         </Form.Group>
-        <Form.Group className="mb-2" controlId="inputIDType">
-          <Form.Label>Tipo de identificación</Form.Label>
-          <Dropdown>
-            <Dropdown.Toggle variant="outline-secondary">
-              {inputIDType ? inputIDType : 'Selecciona tipo'}
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item
-                onClick={() => setInputIDType('Cédula de Ciudadanía')}
-              >
-                Cédula de Ciudadanía
-              </Dropdown.Item>
-              <Dropdown.Item
-                onClick={() => setInputIDType('Tarjeta de Identidad')}
-              >
-                Tarjeta de Identidad
-              </Dropdown.Item>
-              <Dropdown.Item onClick={() => setInputIDType('Registro Civil')}>
-                Registro Civil
-              </Dropdown.Item>
-              <Dropdown.Item
-                onClick={() => setInputIDType('Cédula de Extranjería')}
-              >
-                Cédula de Extranjería
-              </Dropdown.Item>
-              <Dropdown.Item
-                onClick={() => setInputIDType('Carné de Identidad')}
-              >
-                Carné de Identidad
-              </Dropdown.Item>
-              <Dropdown.Item
-                onClick={() =>
-                  setInputIDType('Documento Nacional de Identidad')
-                }
-              >
-                Documento Nacional de Identidad
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+        <Form.Group
+          className="mb-3"
+          controlId="documentType"
+          value={inputIDType}
+          {...setInputIDType}
+        >
+          <Form.Label>Tipo de identificación:</Form.Label>
+          <Form.Select
+            id="documentType"
+            name="documentType"
+            aria-label="Default select example"
+            required
+          >
+            <option value="">Seleccione un tipo de identificación</option>
+            {documentsTypeList.map((doc) => (
+              <option key={doc.id} value={doc.id}>
+                {doc.name}
+              </option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="inputIDNumber">
@@ -145,7 +167,7 @@ export const RegisterForm = () => {
             type="number"
             value={inputIDNumber}
             placeholder="Número o ID de identificación"
-            onChange={handleInputChange(setInputIDNumber)}
+            {...setInputIDNumber}
             required
           />
         </Form.Group>
@@ -155,7 +177,7 @@ export const RegisterForm = () => {
             type="number"
             value={inputPhone}
             placeholder="Teléfono"
-            onChange={handleInputChange(setInputPhone)}
+            {...setInputPhone}
             required
           />
         </Form.Group>
@@ -165,7 +187,7 @@ export const RegisterForm = () => {
             type="text"
             value={inputAddress}
             placeholder="Dirección"
-            onChange={handleInputChange(setInputAddress)}
+            {...setInputAddress}
             required
           />
         </Form.Group>
@@ -175,7 +197,7 @@ export const RegisterForm = () => {
             type="password"
             value={inputPassword}
             placeholder="Password"
-            onChange={handleInputChange(setInputPassword)}
+            {...setInputPassword}
             required
           />
         </Form.Group>
@@ -190,7 +212,7 @@ export const RegisterForm = () => {
         )}
         <div className="d-grid justify-content-end">
           <Button className="text-muted px-1" variant="link" href="/login">
-            <Form.Label>Ya tienes cuenta? </Form.Label>¡Inicia Sesión!
+            <Form.Label>Ya tienes cuenta? ¡Inicia Sesión!</Form.Label>
           </Button>
         </div>
       </Form>
