@@ -90,10 +90,10 @@ export const RegisterForm = () => {
         {/* Header */}
         <Image
           className="img-thumbnail mx-auto d-block mb-2"
-          src="/images/3.jpg"
+          src="/images/logo_le_fances.png"
           alt="logo"
-          width={70}
-          height={70}
+          width="100"
+          height="100"
         />
         <div className="h4 mb-2 text-center">Regístrate</div>
         {/* Alert */}

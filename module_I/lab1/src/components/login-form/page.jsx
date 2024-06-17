@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import { useLogin } from 'lab1/hooks/useLogin';
+import Image from 'next/image';
 
 export const LoginForm = () => {
   const {
@@ -21,7 +22,13 @@ export const LoginForm = () => {
       {/* Form */}
       <Form className="shadow p-4 bg-white rounded" onSubmit={handleSubmit}>
         {/* Header */}
-        <img className="img-thumbnail mx-auto d-block mb-2" alt="logo" />
+        <Image
+          className="img-thumbnail mx-auto d-block mb-2"
+          src="/images/logo_le_fances.png"
+          alt="logo"
+          width="100"
+          height="100"
+        />
         <div className="h4 mb-2 text-center">Inicia Sesión</div>
         {/* Alert */}
         {show ? (
