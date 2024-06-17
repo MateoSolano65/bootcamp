@@ -1,8 +1,12 @@
+'use client';
+
+import { NavbarDashboard } from 'lab1/components';
+
 export default function DashboardLayout({ children }) {
   return (
-    <div>
-      <h1>Hello Root Layout Dashboard</h1>
-      {children}
-    </div>
+    <>
+      <NavbarDashboard />
+      <div>{children}</div>
+    </>
   );
 }
