@@ -7,6 +7,15 @@
   box-sizing: border-box;
 }
 
+/* styles/globals.css */
+.nav-dropdown .nav-link {
+  padding-right: 2rem; /* Ajusta el padding según sea necesario */
+}
+
+.nav-dropdown .dropdown-toggle::after {
+  display: none !important; /* Oculta la flecha del dropdown */
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

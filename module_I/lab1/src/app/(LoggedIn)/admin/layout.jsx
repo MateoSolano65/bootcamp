@@ -1,12 +1,11 @@
 'use client';
 
-import { NavbarDashboard } from 'lab1/components';
+import { Sidebar } from 'lab1/components';
 
 export default function DashboardLayout({ children }) {
   return (
-    <>
-      <NavbarDashboard />
+    <Sidebar>
       <div>{children}</div>
-    </>
+    </Sidebar>
   );
 }
