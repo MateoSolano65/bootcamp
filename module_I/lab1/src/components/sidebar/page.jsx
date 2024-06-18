@@ -2,8 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import { useState } from 'react';
 
-import 'bootstrap-icons/font/bootstrap-icons.css';
-
 export const Sidebar = ({ children }) => {
   const [perfilOpen, setPerfilOpen] = useState(false);
 

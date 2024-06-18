@@ -1,6 +1,7 @@
 'use client';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
