@@ -36,7 +36,7 @@ export const Sidebar = ({ children }) => {
               </li>
               <li className="w-100">
                 <Link
-                  href="#"
+                  href="/admin/user"
                   className="nav-link px-0 align-middle text-white"
                 >
                   <i className="fs-4 bi-people ms-2"></i>
@@ -67,10 +67,28 @@ export const Sidebar = ({ children }) => {
                 {perfilOpen && (
                   <ul className="nav flex-column">
                     <li className="nav-item">
-                      <Link href="/admin/profile" passHref>
+                      <Link href="/admin/user" passHref>
                         <div className="nav-link text-white px-0">
                           <span className="ms-4 d-none d-sm-inline">
-                            Detalle
+                            Detalle Perfil
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link href="/admin/user/edit" passHref>
+                        <div className="nav-link text-white px-0">
+                          <span className="ms-4 d-none d-sm-inline">
+                            Editar Perfil
+                          </span>
+                        </div>
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link href="/admin/user" passHref>
+                        <div className="nav-link text-white px-0">
+                          <span className="ms-4 d-none d-sm-inline">
+                            Cambiar Contraseña
                           </span>
                         </div>
                       </Link>
