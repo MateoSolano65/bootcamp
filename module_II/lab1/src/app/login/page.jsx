@@ -1,8 +1,12 @@
-// src/app/login/page.jsx
-export default function LoginPage() {
+'use client';
+import { LoginForm } from '@/components/index';
+
+const LoginPage = () => {
   return (
     <>
-      <h1>gfdhfhfgd</h1>
+      <LoginForm />
     </>
   );
-}
+};
+
+export default LoginPage;
