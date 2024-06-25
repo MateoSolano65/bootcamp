@@ -46,7 +46,7 @@ export function NavbarHome() {
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="#" aria-current="page">
+          <Link href="/about" aria-current="page">
             Quiénes Somos
           </Link>
         </NavbarItem>
@@ -58,7 +58,7 @@ export function NavbarHome() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
-          <Link href="#">Iniciar Sesión</Link>
+          <Link href="/login">Iniciar Sesión</Link>
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="primary" href="#" variant="flat">
