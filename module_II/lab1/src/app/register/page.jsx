@@ -1,11 +1,11 @@
-// 'use client';
-// import { RegisterForm } from 'lab1/components';
-// import './register.css';
+// src/app/register/page.jsx
+'use client';
+import { RegisterForm } from '@/components/register-form/page.jsx';
 
-// export default function RegisterPage() {
-//   return (
-//     <>
-//       <RegisterForm />
-//     </>
-//   );
-// }
+export default function RegisterPage() {
+  return (
+    <>
+      <RegisterForm />
+    </>
+  );
+}

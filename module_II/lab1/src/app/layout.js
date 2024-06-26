@@ -1,7 +1,7 @@
 'use client';
 import * as React from "react";
 import { NextUIProvider } from '@nextui-org/react';
-import { NavbarHome } from '../components/navbar-home/page'; // Asegúrate de que esta ruta sea correcta
+import { NavbarHome } from '../components/navbar-home/page';
 
 import 'swiper/css';
 import { Inter } from 'next/font/google';
